@@ -1,0 +1,28 @@
+{
+  "name": "fast2sms-otp-production",
+  "version": "1.0.0",
+  "description": "Production-ready OTP verification system using Fast2SMS",
+  "main": "index.html",
+  "scripts": {
+    "dev": "netlify dev",
+    "build": "echo 'No build step required for static HTML'",
+    "deploy": "netlify deploy --prod"
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.7"
+  },
+  "devDependencies": {
+    "netlify-cli": "^17.0.0"
+  },
+  "keywords": [
+    "otp",
+    "sms",
+    "fast2sms",
+    "verification",
+    "authentication",
+    "netlify",
+    "serverless"
+  ],
+  "author": "Your Name",
+  "license": "MIT"
+}
