@@ -1,19 +1,15 @@
 [build]
-  publish = "."
   functions = "netlify/functions"
-
-[build.environment]
-  NODE_VERSION = "18"
+  publish = "."
 
 [[redirects]]
-  from = "/api/*"
+  from = "/.netlify/functions/*"
   to = "/.netlify/functions/:splat"
   status = 200
 
 [functions]
-  node_bundler = "nft"
+  node_bundler = "esbuild"
 
-# Environment variables (set these in Netlify dashboard)
-# FAST2SMS_API_KEY = "9ZhlC0fdeIgEuxkXnaNGc2SP6TOpbt3R7wMviYFryomz1s5qQVszkCe3hc0Wwdon1a5DIQG6TOrUfF2x"
-# FAST2SMS_SENDER_ID = "FSTSMS" (optional)
-# JWT_SECRET = "your_jwt_secret" (optional, for token generation)
+[dev]
+  functions = "netlify/functions"
+  publish = "."
