@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Dashboard</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="fbc.js"></script>
+  <style>
+        :root {
+            --primary-color: #2c3e50;
+            --secondary-color: #3498db;
+            --background-light: #f4f7f9;
+            --text-color: #333;
+            --card-shadow: 0 8px 16px rgba(0,0,0,0.1);
+            --header-height: 80px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--background-light);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding-top: var(--header-height);
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Fixed Header */
+        .fixed-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: white;
+            padding: 15px 20px;
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .header-left h1 {
+            font-size: 1.2rem;
+            margin: 0;
+        }
+
+        .header-left p {
+            font-size: 0.8rem;
+            margin: 0;
+            opacity: 0.9;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .header-icon {
+            cursor: pointer;
+            transition: transform 0.3s ease;
+            font-size: 1.5rem;
+        }
+
+        .header-icon:hover {
+            transform: scale(1.1);
+        }
+
+        /* Mobile Menu Button */
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+        }
+
+        .sidebar {
+            width: 270px;
+            background-color: var(--primary-color);
+            color: white;
+            padding: 30px 20px;
+            display: flex;
+            flex-direction: column;
+            display: none;
+            transition: all 0.3s ease;
+            position: fixed;
+            top: var(--header-height);
+            left: 0;
+            bottom: 0;
+            z-index: 999;
+            overflow-y: auto;
+        }
+
+        .sidebar.mobile-open {
+            display: flex;
+        }
+
+        .sidebar-overlay {
+            display: none;
+            position: fixed;
+            top: var(--header-height);
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 998;
+        }
+
+        .sidebar-overlay.active {
+            display: block;
+        }
+
+        .sidebar-header {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .sidebar-header img {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            margin: 0 auto;
+        }
+
+        .sidebar-header .profile-info h3 {
+            margin: 10px 0 0 0;
+            font-size: 1.1rem;
+        }
+
+        .sidebar-header .profile-info p {
+            margin: 5px 0 0 0;
+            font-size: 0.8rem;
+            color: rgba(255,255,255,0.7);
+        }
+
+        .nav-menu {
+            flex-grow: 1;
+        }
+
+        .nav-menu a {
+            display: flex;
+            align-items: center;
+            color: rgba(255,255,255,0.8);
+            text-decoration: none;
+            padding: 12px 15px;
+            margin-bottom: 8px;
+            border-radius: 8px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+
+        .nav-menu a i {
+            margin-right: 12px;
+            font-size: 1.1rem;
+            width: 20px;
+            text-align: center;
+        }
+
+        .nav-menu a:hover {
+            background-color: rgba(255,255,255,0.1);
+            color: white;
+            transform: translateX(5px);
+        }
+
+        .main-content {
+            flex-grow: 1;
+            padding: 20px;
+            background-color: var(--background-light);
+            overflow-y: auto;
+            width: 100%;
+        }
+
+        .card {
+            background: white;
+            border-radius: 12px;
+            box-shadow: var(--card-shadow);
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 20px rgba(0,0,0,0.12);
+        }
+
+        .card h2 {
+            color: var(--primary-color);
+            margin-bottom: 15px;
+            border-bottom: 2px solid var(--secondary-color);
+            padding-bottom: 8px;
+            font-size: 1.3rem;
+        }
+
+        .quick-actions {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+        }
+
+        .action-card {
+            background-color: #f9f9f9;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            min-height: 120px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .action-card:hover {
+            background-color: var(--secondary-color);
+            color: white;
+            transform: translateY(-3px);
+        }
+
+        .action-card i {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: var(--primary-color);
+        }
+
+        .action-card:hover i {
+            color: white;
+        }
+
+        .action-card h3 {
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        /* Popup Styles */
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.5);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        .popup {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            position: relative;
+            text-align: center;
+            animation: fadeIn 0.3s ease-in-out;
+            max-height: 80vh;
+            overflow-y: auto;
+        }
+
+        @keyframes fadeIn {
+            from { transform: scale(0.95); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 24px;
+            color: #888;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .close-btn:hover {
+            color: #000;
+        }
+
+        .popup button.action-btn {
+            display: block;
+            width: 100%;
+            margin: 10px 0;
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        /* Mobile Responsive Styles */
+        @media (max-width: 768px) {
+            :root {
+                --header-height: 70px;
+            }
+
+            .fixed-header {
+                padding: 10px 15px;
+                height: var(--header-height);
+            }
+
+            .header-left h1 {
+                font-size: 1rem;
+            }
+
+            .header-left p {
+                font-size: 0.7rem;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .header-right {
+                gap: 10px;
+            }
+
+            .header-icon {
+                font-size: 1.3rem;
+            }
+
+            .sidebar {
+                width: 280px;
+            }
+
+            .main-content {
+                padding: 15px;
+            }
+
+            .card {
+                padding: 15px;
+                margin-bottom: 15px;
+            }
+
+            .card h2 {
+                font-size: 1.1rem;
+                margin-bottom: 12px;
+            }
+
+            .quick-actions {
+                grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+                gap: 10px;
+            }
+
+            .action-card {
+                padding: 12px;
+                min-height: 100px;
+            }
+
+            .action-card i {
+                font-size: 1.5rem;
+                margin-bottom: 8px;
+            }
+
+            .action-card h3 {
+                font-size: 0.8rem;
+            }
+
+            .popup {
+                margin: 20px;
+                max-height: calc(100vh - 40px);
+            }
+
+            .popup button.action-btn {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .quick-actions {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .action-card {
+                min-height: 90px;
+                padding: 10px;
+            }
+
+            .action-card i {
+                font-size: 1.3rem;
+            }
+
+            .action-card h3 {
+                font-size: 0.75rem;
+            }
+
+            .header-left h1 {
+                font-size: 0.9rem;
+            }
+
+            .header-left p {
+                display: none;
+            }
+        }
+
+        /* Viewer Counter Responsive */
+        #viewer-counter-container {
+            position: fixed !important;
+            bottom: 10px !important;
+            right: 10px !important;
+            font-size: 12px !important;
+            padding: 4px 8px !important;
+            z-index: 10000 !important;
+        }
+
+        @media (max-width: 480px) {
+            #viewer-counter-container {
+                bottom: 5px !important;
+                right: 5px !important;
+                font-size: 10px !important;
+                padding: 3px 6px !important;
+            }
+        }
+
+/* Assign this class to your footer element */
+.custom-footer {
+  /* Typography & color */
+  color: purple;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  font-size: 0.85rem;
+  letter-spacing: 0.05em;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+
+  /* Layout */
+  text-align: center;
+  padding: 12px 0;
+  margin-top: 2rem;
+  border-top: 2px solid purple;
+
+  /* Background */
+  background-color: rgba(128, 0, 128, 0.05);
+
+  /* Blinking animation */
+  animation: blink 2s infinite ease-in-out;
+}
+
+/* Slow blinking keyframes */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.4; }
+}
+
+    </style>
+</head>
+
+<script type="module">
+    // Firebase config
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+    import { getFirestore, doc, getDoc, setDoc, updateDoc, increment } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-firestore.js";
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const docRef = doc(db, "views", "counter");
+
+    async function updatePageViews() {
+      try {
+        const docSnap = await getDoc(docRef);
+        if (docSnap.exists()) {
+          await updateDoc(docRef, {
+            pageViews: increment(1)
+          });
+          const updatedSnap = await getDoc(docRef);
+          document.getElementById("counter").innerText = 
+            "Total Visitors : " + updatedSnap.data().pageViews;
+        } else {
+          await setDoc(docRef, { pageViews: 1 });
+          document.getElementById("counter").innerText = 
+            "Page Views: 1";
+        }
+      } catch (error) {
+        console.error("Error updating page views:", error);
+        document.getElementById("counter").innerText = "Error loading views";
+      }
+    }
+
+    updatePageViews();
+     initViewerCounter();
+
+    function initViewerCounter() {
+  const counterContainer = document.createElement('div');
+  counterContainer.id = 'viewer-counter-container';
+  counterContainer.style.cssText = `
+    position: fixed;
+    bottom: 10px;
+    right: 10px;
+    background-color: rgba(255, 255, 255, 0.9);
+    padding: 6px 12px;
+    border-radius: 20px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    display: flex;
+    align-items: center;
+    z-index: 9999;
+    transition: opacity 0.3s;
+  `;
+
+  const counterDisplay = document.createElement('div');
+  counterDisplay.id = 'viewer-count';
+  counterDisplay.textContent = '1';
+  counterDisplay.style.cssText = `
+    margin-left: 5px;
+    font-weight: bold;
+    color: #4285f4;
+  `;
+
+  const onlineDot = document.createElement('div');
+  onlineDot.id = 'online-indicator';
+  onlineDot.style.cssText = `
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #34a853;
+    margin-right: 5px;
+  `;
+
+  const label = document.createElement('span');
+  label.textContent = 'Online:';
+  label.style.cssText = `
+    color: #333;
+  `;
+
+  counterContainer.appendChild(onlineDot);
+  counterContainer.appendChild(label);
+  counterContainer.appendChild(counterDisplay);
+  document.body.appendChild(counterContainer);
+
+  // Client-side viewer counter logic
+  const STORAGE_KEY = 'btcKmr_viewers';
+  const SESSION_KEY = 'btcKmr_session';
+  const UPDATE_INTERVAL = 5000; // 5 seconds
+  const SESSION_TIMEOUT = 30000; // 30 seconds
+  
+  // Generate unique session ID
+  const sessionId = Date.now().toString(36) + Math.random().toString(36).substr(2, 9);
+  
+  // Base viewer count (simulates some existing viewers)
+  const BASE_COUNT = Math.floor(Math.random() * 8) + 3; // Random between 3-10
+  
+  function getCurrentViewers() {
+    try {
+      const stored = localStorage.getItem(STORAGE_KEY);
+      return stored ? JSON.parse(stored) : {};
+    } catch (e) {
+      return {};
+    }
+  }
+  
+  function updateViewers(viewers) {
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(viewers));
+    } catch (e) {
+      console.warn('Could not save viewer data');
+    }
+  }
+  
+  function cleanupExpiredSessions(viewers) {
+    const now = Date.now();
+    const cleaned = {};
+    
+    Object.keys(viewers).forEach(id => {
+      if (now - viewers[id].lastSeen < SESSION_TIMEOUT) {
+        cleaned[id] = viewers[id];
+      }
+    });
+    
+    return cleaned;
+  }
+  
+  function updateCounter() {
+    let viewers = getCurrentViewers();
+    viewers = cleanupExpiredSessions(viewers);
+    
+    // Add/update current session
+    viewers[sessionId] = {
+      lastSeen: Date.now(),
+      page: window.location.pathname
+    };
+    
+    updateViewers(viewers);
+    
+    // Count active viewers + base count
+    const activeCount = Object.keys(viewers).length + BASE_COUNT;
+    counterDisplay.textContent = activeCount;
+    
+    // Simulate occasional viewer fluctuation
+    if (Math.random() < 0.1) { // 10% chance
+      const fluctuation = Math.floor(Math.random() * 3) - 1; // -1, 0, or 1
+      const displayCount = Math.max(1, activeCount + fluctuation);
+      counterDisplay.textContent = displayCount;
+    }
+  }
+  
+  function addRandomViewers() {
+    // Occasionally add simulated viewers for realism
+    if (Math.random() < 0.3) { // 30% chance every interval
+      const viewers = getCurrentViewers();
+      const randomId = 'sim_' + Date.now().toString(36) + Math.random().toString(36).substr(2, 5);
+      viewers[randomId] = {
+        lastSeen: Date.now() - Math.random() * 10000, // Random last seen within 10 seconds
+        page: window.location.pathname
+      };
+      updateViewers(viewers);
+    }
+  }
+  
+  // Initial update
+  updateCounter();
+  
+  // Set up periodic updates
+  const updateInterval = setInterval(() => {
+    updateCounter();
+    addRandomViewers();
+  }, UPDATE_INTERVAL);
+  
+  // Simulate network connectivity
+  let isOnline = navigator.onLine;
+  onlineDot.style.backgroundColor = isOnline ? '#34a853' : '#ea4335';
+  
+  // Listen for online/offline events
+  window.addEventListener('online', () => {
+    isOnline = true;
+    onlineDot.style.backgroundColor = '#34a853';
+  });
+  
+  window.addEventListener('offline', () => {
+    isOnline = false;
+    onlineDot.style.backgroundColor = '#ea4335';
+  });
+  
+  // Cleanup on page unload
+  window.addEventListener('beforeunload', () => {
+    clearInterval(updateInterval);
+  });
+  
+  // Add some visual feedback on hover
+  counterContainer.addEventListener('mouseenter', () => {
+    counterContainer.style.opacity = '1';
+    counterContainer.style.transform = 'scale(1.05)';
+  });
+  
+  counterContainer.addEventListener('mouseleave', () => {
+    counterContainer.style.opacity = '0.9';
+    counterContainer.style.transform = 'scale(1)';
+  });
+  
+  return counterContainer;
+}
+</script>
+
+<body oncontextmenu="return false;" onkeydown="if(event.keyCode==123) return false;">
+    <!-- Fixed Header -->
+    <div class="fixed-header">
+        <div class="header-left">
+            <h1>Welcome <span id="userId"></span></h1>
+            <p>Budget Tourism Cell, KSRTC Kilimanoor</p>
+        </div>
+        <div class="header-right">
+            <button class="mobile-menu-btn" onclick="toggleMobileSidebar()" title="Menu">
+                <i class="fas fa-bars"></i>
+            </button>
+            <span class="header-icon" onclick="toggleSidebar()" title="Toggle sidebar (for Admins only)">
+                <i class="fas fa-expand-arrows-alt"></i>
+            </span>
+            <span class="header-icon" onclick="helpMenu()" title="Help Menu">
+                <i class="fas fa-question-circle"></i>
+            </span>
+        </div>
+    </div>
+
+    <div class="container">
+        <!-- Sidebar Overlay -->
+        <div class="sidebar-overlay" id="sidebarOverlay" onclick="closeMobileSidebar()"></div>
+
+        <div class="sidebar" id="sidebar1">
+            <div class="sidebar-header">
+                <div class="profile-info">
+                    <img src="https://upload.wikimedia.org/wikipedia/en/7/71/Kerala_State_Road_Transport_Corporation_logo.png" alt="Profile Picture">
+                    <h3>Admin Panel</h3>
+                    <p>Dashboard Controls</p>
+                </div>
+            </div>
+
+            <nav class="nav-menu">
+                <a href="javascript:void(0);" onclick="alert('Feature coming soon')">
+                    <i class="fas fa-tachometer-alt"></i>
+                    <span id="usertype2"></span>
+                </a>
+                <a href="#tour"><i class="fas fa-route"></i> Tour Management</a>
+                <a href="#place"><i class="fas fa-map-marked-alt"></i> Place Management</a>
+                <a href="#bus"><i class="fas fa-bus"></i> Bus Management</a>
+                <a href="#user"><i class="fas fa-users"></i> User Management</a>
+                <a href="javascript:void(0);" onclick="showPopup()">
+                    <i class="fas fa-tools"></i> Admin Utilities
+                </a>
+                <a href="javascript:void(0);" onclick="window.location='staffupcomingTours.html';">
+                    <i class="fas fa-ticket-alt"></i>Admin Tour Booking
+                </a>
+                <a href="javascript:void(0);" onclick="window.location='adminViewTours.html';">
+                    <i class="fas fa-ticket"></i>View Tour Booking
+                </a>
+                <a href="javascript:void(0);" onclick="alert('Total number of people who watched this web site');" id="counter"></a>
+            </nav>
+
+            <a href="index.html" class="nav-menu-bottom" style="color: rgba(255,255,255,0.8); text-decoration: none; padding: 15px;">
+                <i class="fas fa-sign-out-alt"></i> Logout
+            </a>
+        </div>
+
+        <div class="main-content">
+            <div class="card">
+                <h2>Quick Actions</h2>
+                <div class="quick-actions">
+                    <div class="action-card" onclick="redirectToTours()">
+                        <i class="fas fa-bus-alt"></i>
+                        <h3>Upcoming Tours</h3>
+                    </div>
+                    <div class="action-card" onclick="window.location='addUser.html';">
+                        <i class="fas fa-user-plus"></i>
+                        <h3>Register</h3>
+                    </div>
+                    <div class="action-card" onclick="window.location='viewPlaces.html';">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <h3>Tour Places</h3>
+                    </div>
+                    <div class="action-card" onclick="window.location='index.html';">
+                        <i class="fas fa-sign-out-alt"></i>
+                        <h3>Logout</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" id="tour">
+                <h2><i class="fas fa-suitcase-rolling"></i> Tour Management</h2>
+                <div class="quick-actions">
+                    <div class="action-card" onclick="window.location='addTour.html';">
+                        <i class="fas fa-calendar-plus"></i>
+                        <h3>Create A Tour</h3>
+                    </div>
+                    <div class="action-card" onclick="window.location='editTour.html';">
+                        <i class="fas fa-edit"></i>
+                        <h3>Modify A Tour</h3>
+                    </div>
+                    <div class="action-card" onclick="const code = prompt('Enter admin code to proceed:');if (code === 'niranjana') {window.location.href = 'deleteOldTours.html';} else if (code !== null) { alert('Incorrect code. Access denied.');}">
+                        <i class="fas fa-trash"></i>
+                        <h3>Delete Old Tours</h3>
+                    </div>
+                    <div class="action-card" onclick="window.location='upcomingTours.html';">
+                        <i class="fas fa-eye"></i>
+                        <h3>View Tours</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" id="place">
+                <h2><i class="fas fa-globe"></i> Place Management</h2>
+                <div class="quick-actions">
+                    <div class="action-card" onclick="window.location='addPlace.html';">
+                        <i class="fas fa-plus-circle"></i>
+                        <h3>Add A Place</h3>
+                    </div>
+                    <div class="action-card" onclick="window.location='editPlace.html';">
+                        <i class="fas fa-edit"></i>
+                        <h3>Modify A Place</h3>
+                    </div>
+                    <div class="action-card" onclick="window.location='deletePlace.html';">
+                        <i class="fas fa-minus-circle"></i>
+                        <h3>Delete A Place</h3>
+                    </div>
+                    <div class="action-card" onclick="window.location='viewPlaces.html';">
+                        <i class="fas fa-list"></i>
+                        <h3>View Places</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" id="bus">
+                <h2><i class="fas fa-bus"></i> Bus Management</h2>
+                <div class="quick-actions">
+                    <div class="action-card" onclick="window.location='addBus.html';">
+                        <i class="fas fa-plus"></i>
+                        <h3>Add A Bus</h3>
+                    </div>
+                    <div class="action-card" onclick="window.location='editBus.html';">
+                        <i class="fas fa-wrench"></i>
+                        <h3>Change A Bus</h3>
+                    </div>
+                    <div class="action-card" onclick="window.location='deleteBus.html';">
+                        <i class="fas fa-times"></i>
+                        <h3>Delete A Bus</h3>
+                    </div>
+                    <div class="action-card" onclick="window.location='viewBuses.html';">
+                        <i class="fas fa-list-ul"></i>
+                        <h3>View Buses</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" id="staff" style="display: none;">
+                <h2><i class="fas fa-user-tie"></i> Staff Module</h2>
+                <div class="quick-actions">
+                    <div class="action-card" onclick="window.location='addTour.html';">
+                        <i class="fas fa-calendar-plus"></i>
+                        <h3>Create A Tour</h3>
+                    </div>
+
+                    <div class="action-card" onclick="window.location='editTour.html';">
+                        <i class="fas fa-calendar"></i>
+                        <h3>Modify A Tour</h3>
+                    </div>
+                    <div class="action-card" onclick="window.location='viewBuses.html';">
+                        <i class="fas fa-bus-alt"></i>
+                        <h3>View Buses</h3>
+                    </div>
+
+
+                    <div class="action-card" onclick="window.location='upcomingToursStaff.html';">
+                        <i class="fas fa-clipboard-list"></i>
+                        <h3>View Bookings</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="card" id="user">
+                <h2><i class="fas fa-user"></i> User Management</h2>
+                <div class="quick-actions">
+                    <div class="action-card" onclick="window.location='addUser.html';">
+                        <i class="fas fa-user-plus"></i>
+                        <h3>Create A User</h3>
+                    </div>
+                    <div class="action-card" onclick="window.location='editUser.html';">
+                        <i class="fas fa-user-edit"></i>
+                        <h3>Modify A User</h3>
+                    </div>
+                    <div class="action-card" onclick="window.location='deleteUser.html';">
+                        <i class="fas fa-user-minus"></i>
+                        <h3>Delete A User</h3>
+                    </div>
+                    <div class="action-card" onclick="window.location='viewUsers.html';">
+                        <i class="fas fa-users"></i>
+                        <h3>View Users</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="popup-overlay" id="popupOverlay" style="display:'none';">
+        <div class="popup">
+            <button class="close-btn" onclick="hidePopup()">×</button>
+            <h2>Utilities</h2>
+            <button class="action-btn" onclick="window.location='imageUrlTest.html';"  
+                style="background-color: #008000;" 
+                onmouseover="this.style.backgroundColor=' #003300'" 
+                onmouseout="this.style.backgroundColor='#008000'">
+                <i class="fas fa-image"></i> Image Url Test
+            </button>
+
+            <button class="action-btn" onclick="const code = prompt('Enter admin code to proceed:');if (code === 'niranjana') {window.location.href = 'export.html';} else if (code !== null) { alert('Incorrect code. Access denied.');}"
+                style="background-color: #009900; "
+                onmouseover="this.style.backgroundColor=' #003300'"
+                onmouseout="this.style.backgroundColor='#009900'">
+                DB Export
+            </button>
+
+            <button class="action-btn" onclick="const code = prompt('Enter admin code to proceed:');if (code === 'niranjana') {window.location.href = 'import.html';} else if (code !== null) { alert('Incorrect code. Access denied.');}"
+                style="background-color:#00b300; "
+                onmouseover="this.style.backgroundColor=' #003300'"
+                onmouseout="this.style.backgroundColor='#00b300'">
+                DB Import
+            </button>
+
+            <button class="action-btn" onclick="const code = prompt('Enter admin code to proceed:');if (code === 'niranjana') {window.location.href = 'deleteOldBookings.html';} else if (code !== null) { alert('Incorrect code. Access denied.');}"
+                style="background-color:#00cc00; "
+                onmouseover="this.style.backgroundColor=' #003300'"
+                onmouseout="this.style.backgroundColor='#00cc00'">
+                Delete Old Bookings
+            </button>
+
+            <button class="action-btn" onclick="alert('To be added');"
+                style="background-color:#00e600; "
+                onmouseover="this.style.backgroundColor=' #003300'"
+                onmouseout="this.style.backgroundColor='#00e600'">
+                <i class="fas fa-cog"></i> Settings
+            </button>
+        </div>
+    </div>
+
+    
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const userId = urlParams.get('userId');
+
+        let userid = document.getElementById("userId");
+        let userName = sessionStorage.getItem('userName');
+        let sidebar = document.getElementById("sidebar1");
+        let tour = document.getElementById("tour");
+        let place = document.getElementById("place");
+        let bus = document.getElementById("bus");
+        let user = document.getElementById("user");
+        let staff = document.getElementById("staff");
+
+        let isLogin = sessionStorage.getItem('isLogin');
+	let userRole = sessionStorage.getItem('userRole');
+
+	if (userRole === "Admin"){
+	    tour.style.display = "block";
+            place.style.display = "block";
+            bus.style.display = "block";
+            user.style.display = "block";
+            sidebar.style.display = "none"; //changed to none
+	}
+	else if (userRole === "Staff"){
+	    tour.style.display = "none";
+            place.style.display = "none";
+            bus.style.display = "none";
+            user.style.display = "none";
+            sidebar.style.display = "none"; 
+	    staff.style.display = "block";
+	}
+	else {
+	    tour.style.display = "none";
+            place.style.display = "none";
+            bus.style.display = "none";
+            user.style.display = "none";
+            sidebar.style.display = "none";
+	}
+
+        if (isLogin === 'true' && userId !== '0') {
+            userid.innerHTML = " " + userName;
+        } else {
+            userid.innerHTML = " Guest";
+            
+        }
+
+        function updateDateTime() {
+            const now = new Date();
+
+            let day = now.getDate().toString().padStart(2, '0');
+            let month = (now.getMonth() + 1).toString().padStart(2, '0'); // Month is 0-based
+            let year = now.getFullYear();
+
+            let hours = now.getHours();
+            let minutes = now.getMinutes().toString().padStart(2, '0');
+            let seconds = now.getSeconds().toString().padStart(2, '0');
+
+            let ampm = hours >= 12 ? 'PM' : 'AM';
+            hours = hours % 12 || 12; // Convert 0 to 12 and 13+ to 1-12
+            hours = hours.toString().padStart(2, '0');
+
+            let formatted = `${day}-${month}-${year} : ${hours}:${minutes}:${seconds} ${ampm}`;
+            document.getElementById("usertype2").innerText = formatted;
+        }
+
+        // Initial call
+        updateDateTime();
+
+        // Update every second
+        setInterval(updateDateTime, 1000);
+
+        function toggleSidebar() {
+            if((userId !== '0')&&(userRole === "Admin")) {
+                const sidebar = document.getElementById("sidebar1");
+                if (sidebar.style.display === "none" || sidebar.style.display === "") {
+                    sidebar.style.display = "flex"; // show
+                } else {
+                    sidebar.style.display = "none";  // hide
+                }
+            }
+        }
+
+
+function redirectToTours() {
+    const userName = sessionStorage.getItem('userName');
+    if (userName === 'Guest') {
+        window.location = 'guestupcomingTours.html';
+    } else {
+        window.location = 'upcomingTours.html';
+    }
+}
+
+  function showPopup() {
+      document.getElementById("popupOverlay").style.display = "flex";
+    }
+
+    function hidePopup() {
+      document.getElementById("popupOverlay").style.display = "none";
+    }
+
+/* Help function general*/
+
+function help(content, title = 'Help') {
+  // Create overlay
+  const overlay = document.createElement('div');
+  overlay.className = 'help-overlay';
+  
+  // Create popup container
+  const popup = document.createElement('div');
+  popup.className = 'help-popup';
+  
+  // Create header with title and close button
+  const header = document.createElement('div');
+  header.className = 'help-header';
+  
+  const titleElement = document.createElement('h2');
+  titleElement.textContent = title;
+  
+  const closeButton = document.createElement('button');
+  closeButton.className = 'help-close';
+  closeButton.innerHTML = '&times;';
+  closeButton.setAttribute('aria-label', 'Close help');
+  
+  header.appendChild(titleElement);
+  header.appendChild(closeButton);
+  
+  // Create content area
+  const contentArea = document.createElement('div');
+  contentArea.className = 'help-content';
+  contentArea.innerHTML = content;
+  
+  // Create timer indicator
+  const timer = document.createElement('div');
+  timer.className = 'help-timer';
+  
+  // Assemble popup
+  popup.appendChild(header);
+  popup.appendChild(contentArea);
+  popup.appendChild(timer);
+  
+  // Add popup to overlay, then add overlay to body
+  overlay.appendChild(popup);
+  document.body.appendChild(overlay);
+  
+  // Add CSS to document if not already present
+  if (!document.getElementById('help-popup-styles')) {
+    const styles = document.createElement('style');
+    styles.id = 'help-popup-styles';
+    styles.textContent = `
+      .help-overlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 9999;
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+      
+      .help-popup {
+        background-color: #fff;
+        border-radius: 8px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        width: 90%;
+        max-width: 500px;
+        max-height: 80vh;
+        display: flex;
+        flex-direction: column;
+        transform: translateY(20px);
+        transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        overflow: hidden;
+      }
+      
+      .help-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 15px 20px;
+        background-color: #f8f9fa;
+        border-bottom: 1px solid #eaeaea;
+      }
+      
+      .help-header h2 {
+        margin: 0;
+        font-size: 1.0rem;
+        color: #333;
+      }
+      
+      .help-close {
+        background: none;
+        border: none;
+        font-size: 1.5rem;
+        cursor: pointer;
+        color: #666;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 30px;
+        height: 30px;
+        border-radius: 50%;
+        transition: background-color 0.2s, color 0.2s;
+      }
+      
+      .help-close:hover {
+        background-color: rgba(0, 0, 0, 0.1);
+        color: #333;
+      }
+      
+      .help-content {
+        padding: 20px;
+        overflow-y: auto;
+        line-height: 1.6;
+      }
+      
+      .help-timer {
+        height: 4px;
+        background-color: #4CAF50;
+        width: 100%;
+        transform-origin: left;
+        transition: transform linear 10s;
+      }
+      
+      .help-fade {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      
+      @keyframes pulse {
+        0% { transform: scale(1); opacity: 0.7; }
+        50% { transform: scale(1.05); opacity: 1; }
+        100% { transform: scale(1); opacity: 0.7; }
+      }
+      
+      .help-popup-active {
+        animation: pulse 2s ease-in-out;
+      }
+    `;
+    document.head.appendChild(styles);
+  }
+  
+  // Functions to show and hide the popup
+  const hidePopup = () => {
+    popup.classList.add('help-fade');
+    overlay.style.opacity = '0';
+    
+    setTimeout(() => {
+      if (overlay.parentNode) {
+        document.body.removeChild(overlay);
+      }
+    }, 300);
+  };
+  
+  // Set up event listeners
+  closeButton.addEventListener('click', hidePopup);
+  overlay.addEventListener('click', (event) => {
+    if (event.target === overlay) {
+      hidePopup();
+    }
+  });
+  
+  // Trigger entrance animation
+  setTimeout(() => {
+    overlay.style.opacity = '1';
+    popup.style.transform = 'translateY(0)';
+    timer.style.transform = 'scaleX(0)'; // Start timer animation
+    
+    // Add pulse effect
+    setTimeout(() => {
+      popup.classList.add('help-popup-active');
+    }, 200);
+  }, 10);
+  
+  // Set up auto-close after 10 seconds
+  const timeout = setTimeout(hidePopup, 10000);
+  
+  // Add keyboard accessibility
+  const handleEscape = (event) => {
+    if (event.key === 'Escape') {
+      hidePopup();
+      document.removeEventListener('keydown', handleEscape);
+    }
+  };
+  document.addEventListener('keydown', handleEscape);
+  
+  // Return an object with methods for controlling the popup
+  return {
+    close: hidePopup,
+    resetTimer: () => {
+      clearTimeout(timeout);
+      timer.style.transition = 'none';
+      timer.style.transform = 'scaleX(1)';
+      
+      setTimeout(() => {
+        timer.style.transition = 'transform linear 10s';
+        timer.style.transform = 'scaleX(0)';
+        setTimeout(hidePopup, 10000);
+      }, 50);
+    }
+  };
+}
+
+
+function helpMenu() {
+	const userName = sessionStorage.getItem('userName');
+    	if (userName === 'Guest') {
+	   help(`
+  <div style="font-family: Calibri, Arial, sans-serif; line-height: 1.6; font-size: 14px; color: #333;">
+    <p><i class="fas fa-bus-alt"></i> <b>Upcoming Tours: </b>
+      <span style="color: #003300; font-weight: bold;">
+      വരുന്ന  ടൂർ ട്രിപ്പുകൾ കാണാം.</p>
+      </span>
+    
+    <p><i class="fas fa-user-plus"></i> <b>Register: </b> 
+      <span style="color: #006600; font-weight: bold;">
+        സൈറ്റില്‍ രജിസ്റ്റര്‍ ചെയ്യാം.
+      </span>
+    </p>
+    
+    <p><i class="fas fa-map-marker-alt"></i> <b>Tour Places: </b> 
+      <span style="color: #009900; font-weight: bold;">
+           സ്ഥിരമായി പോകുന്ന സ്ഥലങ്ങള്‍.
+      </span>
+    </p>
+  </div>
+`);
+	}
+        else if(userRole === "Admin") {
+	   	help('For <b><span style="color: violet;">Admins</span></b> to get detailed help, <b><a href="javascript:void(0);" style="color: purple;" onclick="window.location=\'adminUserManual.html\';">Click Here</a></b>');
+	     }
+	     else {
+	   	help('<b><font color=blue>Upcoming Tours </font></b><b><font color=green>വഴി ലഭ്യമാകുന്ന പേജില്‍ നിന്നും തീയതിയും സ്ഥലവും മറ്റ് വിവരങ്ങളും നോക്കി ഉറപ്പാകിയ ശേഷം Book Now വഴി സീറ്റ് സെലക്ട്‌ ചെയ്ത് വിവരങ്ങള്‍ നല്‍കി ബുക്ക്‌ ചെയ്യുക </font></b>');
+	     }
+}
+    </script>
+<footer style="color: purple; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 0.85rem; text-align: center; padding: 10px;" class="custom-footer">
+  <p id="copyright">&copy; sunilskutan. All rights reserved.</p>
+  <script>
+    const year = new Date().getFullYear();
+    document.getElementById("copyright").innerHTML = "&copy; " + year + " sunilskutan. All rights reserved.";
+  </script>
+</footer>
+</body>
+</html>

@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Fullscreen Player</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            height: 100%;
+            overflow: hidden;
+        }
+        #player {
+            width: 100vw;
+            height: 100vh;
+        }
+    </style>
+</head>
+<body>
+    <div id="player"></div>
+
+    <script>
+        // Load the YouTube IFrame Player API asynchronously
+        var tag = document.createElement('script');
+        tag.src = "https://www.youtube.com/iframe_api";
+        var firstScriptTag = document.getElementsByTagName('script')[0];
+        firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+        let player;
+        let parentUrl = window.location.origin;
+
+        // Map numbers to YouTube video IDs
+        const videoMap = {
+            1: 'M5d7vN6HyfE', 
+            2: '9lkXR1nxRc0?si=JtqP34rV5NLEDRqg',
+            3: '8ZnkHuyXIm0',
+	    4: 'gergZZn2UTI',
+	    5: 'yMTMmGBJF9k',
+	    6: 'AgzBwPBPZj8',
+	    7: 'Xwc8I2XFk2s',
+	    8: '_su0Ys2pYsU',
+	    9: 'KU8H3_Ux1pU',
+	    10: 'ri13HzESQY0',
+	    11: 'Q0gOsS7ULMc',
+	    12: 'ywoU59gdOcs',
+	    13: 'tnKmwneSL2Q',
+	    14: 'nwAA_Qc8_AQ',
+	    15: 'RytI4Yxm9_U',
+	    16: 'FYZgjb-Lg8A',
+	    17: '1l-8PJrCkNM',
+	    18: '_xPEESP0EJQ',
+	    19: 'Ho3-14eBONk',
+	    20: '',
+	    21: '',
+	    22: '',
+	    23: '',
+	    24: '',
+	    25: '',
+	    26: '',
+	    27: ''
+        };
+
+        // Get video number from URL parameter
+        const urlParams = new URLSearchParams(window.location.search);
+        const videoNumber = urlParams.get('videoUrl'); // e.g., ?videoUrl=1
+        const videoId = videoMap[videoNumber];
+
+        // Called when YouTube API is ready
+        function onYouTubeIframeAPIReady() {
+            if (!videoId) {
+                alert('Invalid video number');
+                window.location.href = 'viewPlaces.html';
+                return;
+            }
+
+            player = new YT.Player('player', {
+                height: '100%',
+                width: '100%',
+                videoId: videoId,
+                playerVars: {
+                    autoplay: 1,
+                    controls: 1,
+                    fs: 1,
+                    rel: 0,
+                    showinfo: 0,
+                    mute: 1 // Mute for autoplay compatibility
+                },
+                events: {
+                    onReady: onPlayerReady,
+                    onStateChange: onPlayerStateChange
+                }
+            });
+        }
+
+        // Autoplay + Fullscreen on ready
+        function onPlayerReady(event) {
+            event.target.mute(); // Ensure it's muted for autoplay
+            event.target.playVideo();
+
+            const iframe = document.querySelector('#player iframe');
+            if (iframe.requestFullscreen) {
+                iframe.requestFullscreen();
+            } else if (iframe.webkitRequestFullscreen) {
+                iframe.webkitRequestFullscreen();
+            } else if (iframe.msRequestFullscreen) {
+                iframe.msRequestFullscreen();
+            }
+        }
+
+        // Go back to parent page when video ends
+        function onPlayerStateChange(event) {
+            if (event.data === YT.PlayerState.ENDED) {
+                window.location.href = 'viewPlaces.html';
+            }
+        }
+
+        // Exit to parent page if fullscreen is exited
+        document.addEventListener('fullscreenchange', () => {
+            if (!document.fullscreenElement) {
+                window.location.href = 'viewPlaces.html';
+            }
+        });
+
+        // On tab close/back, go to parent
+        window.addEventListener('beforeunload', () => {
+            window.location.href = 'viewPlaces.html';
+        });
+    </script>
+</body>
+</html>
