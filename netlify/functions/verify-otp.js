@@ -1,14 +1,12 @@
 // netlify/functions/verify-otp.js
 
-// Import the same OTP store (in production, use a shared database)
-const otpStore = new Map();
-
 exports.handler = async (event, context) => {
-    // Set CORS headers
+    // Enable CORS
     const headers = {
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Headers': 'Content-Type',
-        'Access-Control-Allow-Methods': 'POST, OPTIONS'
+        'Access-Control-Allow-Methods': 'POST, OPTIONS',
+        'Content-Type': 'application/json'
     };
 
     // Handle preflight request
@@ -31,7 +29,6 @@ exports.handler = async (event, context) => {
     try {
         const { phone, otp } = JSON.parse(event.body);
 
-        // Validate input
         if (!phone || !otp) {
             return {
                 statusCode: 400,
@@ -43,105 +40,108 @@ exports.handler = async (event, context) => {
             };
         }
 
-        // Check if OTP exists and is valid
-        const storedData = otpStore.get(phone);
+        // Validate OTP format
+        if (!/^\d{6}$/.test(otp)) {
+            return {
+                statusCode: 400,
+                headers,
+                body: JSON.stringify({ 
+                    success: false, 
+                    message: 'Invalid OTP format' 
+                })
+            };
+        }
+
+        // In a real application, you would:
+        // 1. Retrieve the stored OTP for this phone number from your database/Redis
+        // 2. Check if it matches and hasn't expired
+        // 3. Implement rate limiting and attempt tracking
+
+        // For demonstration purposes, we'll simulate verification
+        // In production, replace this with actual OTP verification logic
         
-        if (!storedData) {
+        // Example verification logic (replace with your actual storage mechanism)
+        const storedOTP = await getStoredOTP(phone); // Implement this function
+        const currentTime = Date.now();
+        
+        if (!storedOTP) {
             return {
                 statusCode: 400,
                 headers,
-                body: JSON.stringify({ 
-                    success: false, 
-                    message: 'OTP not found. Please request a new OTP.' 
+                body: JSON.stringify({
+                    success: false,
+                    message: 'OTP expired or not found. Please request a new OTP.'
                 })
             };
         }
 
-        // Check if OTP is expired
-        if (Date.now() > storedData.expires) {
-            otpStore.delete(phone);
+        // Check if OTP matches
+        if (storedOTP.otp !== otp) {
             return {
                 statusCode: 400,
                 headers,
-                body: JSON.stringify({ 
-                    success: false, 
-                    message: 'OTP has expired. Please request a new OTP.' 
+                body: JSON.stringify({
+                    success: false,
+                    message: 'Invalid OTP'
                 })
             };
         }
 
-        // Check attempts limit
-        if (storedData.attempts >= 3) {
-            otpStore.delete(phone);
+        // Check if OTP has expired (5 minutes = 300000 ms)
+        if (currentTime - storedOTP.timestamp > 300000) {
+            await deleteStoredOTP(phone); // Clean up expired OTP
             return {
                 statusCode: 400,
                 headers,
-                body: JSON.stringify({ 
-                    success: false, 
-                    message: 'Maximum verification attempts exceeded. Please request a new OTP.' 
+                body: JSON.stringify({
+                    success: false,
+                    message: 'OTP has expired. Please request a new OTP.'
                 })
             };
         }
 
-        // Verify OTP
-        if (storedData.otp === otp) {
-            // OTP is correct - remove from store
-            otpStore.delete(phone);
-            
-            // Here you can add additional logic like:
-            // - Create user session
-            // - Generate JWT token
-            // - Update database
-            
-            return {
-                statusCode: 200,
-                headers,
-                body: JSON.stringify({ 
-                    success: true, 
-                    message: 'OTP verified successfully',
-                    // token: generateJWTToken(phone), // Optional: return JWT token
-                    user: {
-                        phone: phone,
-                        verified: true,
-                        verifiedAt: new Date().toISOString()
-                    }
-                })
-            };
-        } else {
-            // Wrong OTP - increment attempts
-            storedData.attempts += 1;
-            otpStore.set(phone, storedData);
-            
-            const remainingAttempts = 3 - storedData.attempts;
-            
-            return {
-                statusCode: 400,
-                headers,
-                body: JSON.stringify({ 
-                    success: false, 
-                    message: `Invalid OTP. ${remainingAttempts} attempts remaining.`,
-                    remainingAttempts: remainingAttempts
-                })
-            };
-        }
+        // OTP is valid, clean up
+        await deleteStoredOTP(phone);
+
+        // You can also generate and return a JWT token here for authentication
+        return {
+            statusCode: 200,
+            headers,
+            body: JSON.stringify({
+                success: true,
+                message: 'OTP verified successfully',
+                // token: generateJWTToken(phone) // Optional: generate auth token
+            })
+        };
 
     } catch (error) {
-        console.error('Error in verify-otp function:', error);
-        
+        console.error('Error:', error);
         return {
             statusCode: 500,
             headers,
-            body: JSON.stringify({ 
-                success: false, 
-                message: 'Internal server error. Please try again later.' 
+            body: JSON.stringify({
+                success: false,
+                message: 'Verification failed. Please try again.'
             })
         };
     }
 };
 
-// Optional: JWT token generation function
-function generateJWTToken(phone) {
-    // Implement JWT token generation here
-    // const jwt = require('jsonwebtoken');
-    // return jwt.sign({ phone }, process.env.JWT_SECRET, { expiresIn: '24h' });
+// Simple in-memory storage (replace with proper database/Redis in production)
+const otpStorage = new Map();
+
+async function getStoredOTP(phone) {
+    return otpStorage.get(phone) || null;
+}
+
+async function deleteStoredOTP(phone) {
+    otpStorage.delete(phone);
+}
+
+// You'll need to implement this in your send-otp function
+function storeOTP(phone, otp) {
+    otpStorage.set(phone, {
+        otp: otp,
+        timestamp: Date.now()
+    });
 }
