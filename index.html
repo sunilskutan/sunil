@@ -71,7 +71,7 @@
         }
 
         .hero h1 {
-            font-size: 1.3em;
+            font-size: 1.5em;
             margin-bottom: 20px;
             font-weight: 700;
             text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
@@ -79,7 +79,7 @@
         }
 
         .hero p {
-            font-size: 0.8em;
+            font-size: 1.3em;
             margin-bottom: 30px;
             opacity: 0.9;
             animation: fadeInUp 1s ease-out 0.3s both;
@@ -536,12 +536,12 @@
             <h2>Share My Portfolio</h2>
             <p>Found something interesting? Share it with your network!</p>
             <div class="share-buttons">
-                <a href="" onclick="alert('Want to do Project. WhatsApp. 9446266822');" class="share-btn whatsapp">
-                    📱 Share on WhatsApp
-                </a>
-                <a href="https://www.facebook.com/sharer/sharer.php?u=" class="share-btn facebook" target="_blank">
-                    📘 Share on Facebook
-                </a>
+                <a href="" onclick="shareOnWhatsApp();" class="share-btn whatsapp">
+    📱 Share on WhatsApp
+</a>
+                <a href="" onclick="shareOnFacebook();" class="share-btn facebook">
+    📘 Share on Facebook
+</a>
             </div>
         </div>
     </section>
@@ -598,10 +598,29 @@
             facebookBtn.href = `https://www.facebook.com/sunilskutan`;
         });
 
-whatsappBtn.onclick = function(event) {
-    event.preventDefault(); // Prevent the default link action
-    alert("This feature is not available right now.");
-};
+function shareOnWhatsApp() {
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent("Check out this amazing portfolio of innovative software solutions from sunilskutan@9446266822! ");
+    
+    // Detect if it's mobile device
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+        // Use WhatsApp mobile app protocol
+        window.open(`whatsapp://send?text=${text}${url}`, '_blank');
+    } else {
+        // Use WhatsApp Web for desktop
+        window.open(`https://web.whatsapp.com/send?text=${text}${url}`, '_blank');
+    }
+}
+
+function shareOnFacebook() {
+    const url = encodeURIComponent(window.location.href);
+    
+    // Facebook sharing works the same on mobile and desktop
+    window.open(`https://www.facebook.com/sunilskutan`, '_blank', 'width=600,height=400');
+}
+
     </script>
 </body>
 </html>
