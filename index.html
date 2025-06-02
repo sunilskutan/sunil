@@ -1,670 +1,546 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
- <meta charset="UTF-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta property="og:title" content="KSRTC BTC Kilimanoor">
-    <meta property="og:description" content="Budget Travel with Government Bus">
-    <meta property="og:image" content="https://minister-transport.kerala.gov.in/wp-content/uploads/2022/08/ksrtc-tourism-copy.jpg">
-    <meta property="og:url" content="https://sunilskutan.github.io/btcKmr/">
+    <title>My Portfolio - Innovative Software Solutions</title>
+    
+    <!-- Open Graph Meta Tags for Social Media -->
+    <meta property="og:title" content="My Portfolio - Innovative Software Solutions">
+    <meta property="og:description" content="Explore my collection of cutting-edge software projects including ticket reservation systems, steganography tools, compilers, and more.">
+    <meta property="og:image" content="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=1200&h=630&fit=crop">
+    <meta property="og:url" content="">
     <meta property="og:type" content="website">
-    <meta property="fb:app_id" content="1234567890">
-
-    <!-- Twitter Card for better preview on Twitter -->
+    
+    <!-- Twitter Card Meta Tags -->
     <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="KSRTC BTC Kilimanoor">
-    <meta name="twitter:description" content="Budget Travel with Government Bus">
-    <meta name="twitter:image" content="https://minister-transport.kerala.gov.in/wp-content/uploads/2022/08/ksrtc-tourism-copy.jpg">
-
-
-    <title>btcKmr Login</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <script src="fbc.js"> </script>
+    <meta name="twitter:title" content="My Portfolio - Innovative Software Solutions">
+    <meta name="twitter:description" content="Explore my collection of cutting-edge software projects">
+    <meta name="twitter:image" content="https://images.unsplash.com/photo-1517077304055-6e89abbf09b0?w=1200&h=630&fit=crop">
+    
     <style>
-        :root {
-            --primary-color: #4361ee;
-            --secondary-color: #3f37c9;
-            --accent-color: #4cc9f0;
-            --danger-color: #f72585;
-            --text-color: #333;
-            --light-color: #f8f9fa;
-            --border-radius: 8px;
-            --box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
-            --transition: all 0.3s ease;
-        }
-        
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
-        body {/*
+
+        body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            position: relative;
-	 transition: background-image 1s ease-in-out;*/
-
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            position: relative;
-            /* Image background */
-           background-image: url("https://minister-transport.kerala.gov.in/wp-content/uploads/2022/08/ksrtc-tourism-copy.jpg"); 
-           background-size: cover; 
-           background-repeat: no-repeat; 
-           background-position: center;
-
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
         }
-        
-        body::before {
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .hero {
+            text-align: center;
+            padding: 80px 0;
+            color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
-            z-index: -1;
-        }
-        
-        .loginContainer {
-            background-color: white;
-            width: 90%;
-            max-width: 400px;
-            padding: 40px;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            text-align: center;
-            position: relative;
-            overflow: hidden;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.3);
             z-index: 1;
         }
-        
-        .logo {
-            margin-bottom: 20px;
-        }
-        
-        .logo img {
-            width: 80px;
-            height: 80px;
-        }
-        
-        h2 {
-            color: var(--primary-color);
-            margin-bottom: 30px;
-            font-size: 28px;
-            font-weight: 600;
-            letter-spacing: 0.5px;
-        }
-        
-        .subtitle {
-            color: #666;
-            margin-bottom: 25px;
-            font-size: 12px;
-        }
-        
-        .form-group {
+
+        .hero-content {
             position: relative;
+            z-index: 2;
+        }
+
+        .hero h1 {
+            font-size: 3.5em;
             margin-bottom: 20px;
-            text-align: left;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 1s ease-out;
         }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 8px;
-            font-size: 14px;
-            color: #555;
-            font-weight: 500;
+
+        .hero p {
+            font-size: 1.3em;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.3s both;
         }
-        
-        .form-group input {
-            width: 100%;
-            padding: 15px 15px 15px 45px;
-            border: 1px solid #ddd;
-            border-radius: var(--border-radius);
-            font-size: 16px;
-            transition: var(--transition);
-        }
-        
-        .form-group input:focus {
-            outline: none;
-            border-color: var(--primary-color);
-            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.15);
-        }
-        
-        .form-group i {
-            position: absolute;
-            left: 15px;
-            top: 42px;
-            color: #aaa;
-            transition: var(--transition);
-        }
-        
-        .form-group input:focus + i {
-            color: var(--primary-color);
-        }
-        
-        .form-group.filled input {
-            border-color: var(--accent-color);
-            background-color: rgba(76, 201, 240, 0.05);
-        }
-        
-        .form-group.filled i {
-            color: var(--accent-color);
-        }
-        
-        .buttons {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 30px;
-        }
-        
-        .btn {
-            width: 100%;
-            padding: 15px;
-            border: none;
-            border-radius: var(--border-radius);
-            font-size: 16px;
+
+        .cta-button {
+            display: inline-block;
+            background: linear-gradient(45deg, #ff6b6b, #ee5a24);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 50px;
             font-weight: 600;
-            cursor: pointer;
-            transition: var(--transition);
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            font-size: 1.1em;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            animation: fadeInUp 1s ease-out 0.6s both;
         }
-        
-        .btn-primary {
-            background-color: var(--primary-color);
-            color: white;
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
         }
-        
-        .btn-primary:hover {
-            background-color: var(--secondary-color);
+
+        .projects {
+            background: white;
+            padding: 80px 0;
+            position: relative;
         }
-        
-        .btn-secondary {
-            background-color: #f0f2f5;
-            color: var(--text-color);
-            border: 1px solid #ddd;
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5em;
+            margin-bottom: 60px;
+            color: #2c3e50;
+            position: relative;
         }
-        
-        .btn-secondary:hover {
-            background-color: #e4e6e9;
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 2px;
         }
-        
-        .btn-accent {
-            background-color: var(--accent-color);
-            color: white;
+
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 50px;
         }
-        
-        .btn-accent:hover {
-            background-color: #3AB4D9;
+
+        .project-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
+            position: relative;
+            border: 1px solid #f0f0f0;
         }
-        
-        .btn i {
-            margin-right: 8px;
+
+        .project-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 20px 50px rgba(0, 0, 0, 0.15);
         }
-        
-        .divider {
-            display: flex;
-            align-items: center;
-            margin: 20px 0;
-            color: #777;
-            font-size: 14px;
+
+        .project-image {
+            width: 100%;
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+            overflow: hidden;
         }
-        
-        .divider::before,
-        .divider::after {
-            content: "";
-            flex: 1;
-            height: 1px;
-            background-color: #ddd;
-        }
-        
-        .divider::before {
-            margin-right: 10px;
-        }
-        
-        .divider::after {
-            margin-left: 10px;
-        }
-        
-        .loader-container {
+
+        .project-image::before {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
-            width: 100%;
-            height: 100%;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, rgba(102, 126, 234, 0.8), rgba(118, 75, 162, 0.8));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .project-card:hover .project-image::before {
+            opacity: 1;
+        }
+
+        .project-content {
+            padding: 25px;
+        }
+
+        .project-title {
+            font-size: 1.4em;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #2c3e50;
+        }
+
+        .project-description {
+            color: #666;
+            margin-bottom: 20px;
+            line-height: 1.6;
+        }
+
+        .project-tech {
             display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-color: rgba(255, 255, 255, 0.9);
-            z-index: 10;
-            transition: var(--transition);
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 20px;
         }
-        
-        .loader {
-            width: 30px;
-            height: 30px;
-            border: 5px solid #f3f3f3;
-            border-top: 5px solid var(--primary-color);
-            border-radius: 50%;
-            animation: spin 1s linear infinite;
-        }
-        
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        .loader-text {
-            margin-top: 20px;
-            color: var(--primary-color);
-            font-weight: 500;
-        }
-        
-        .notification {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            padding: 15px 25px;
-            border-radius: var(--border-radius);
+
+        .tech-tag {
+            background: linear-gradient(45deg, #667eea, #764ba2);
             color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 0.8em;
             font-weight: 500;
-            box-shadow: var(--box-shadow);
-            display: none;
-            z-index: 1000;
-            animation: slideIn 0.3s ease forwards;
         }
-        
-        @keyframes slideIn {
-            from { transform: translateX(100%); opacity: 0; }
-            to { transform: translateX(0); opacity: 1; }
+
+        .project-links {
+            display: flex;
+            gap: 10px;
         }
-        
-        .notification.success {
-            background-color: #10b981;
-        }
-        
-        .notification.error {
-            background-color: var(--danger-color);
-        }
-        
-        .forgotten-password {
-            display: block;
-            margin-top: 10px;
-            color: var(--primary-color);
+
+        .project-link {
+            background: #f8f9fa;
+            color: #495057;
+            padding: 8px 16px;
             text-decoration: none;
-            font-size: 14px;
-            text-align: right;
+            border-radius: 25px;
+            font-size: 0.9em;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
         }
-        
-        .forgotten-password:hover {
-            text-decoration: underline;
-        }
-        
-        .pulse {
-            animation: pulse 1.5s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        .brain-icon {
-            background-color: var(--primary-color);
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 20px;
-            box-shadow: 0 4px 20px rgba(67, 97, 238, 0.4);
-        }
-        
-        .brain-icon i {
+
+        .project-link:hover {
+            background: #667eea;
             color: white;
-            font-size: 40px;
+            border-color: #667eea;
         }
 
+        .social-share {
+            background: #f8f9fa;
+            padding: 40px 0;
+            text-align: center;
+        }
 
-/* Assign this class to your footer element */
-.custom-footer {
-  /* Typography & color 
-  color: purple;
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;*/
-  font-size: 0.85rem;
-  letter-spacing: 0.05em;
-  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
 
-  /* Layout */
-  text-align: center;
-  padding: 12px 0;
-  margin-top: 2rem;
-  border-top: 2px solid white;
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: white;
+        }
 
-  /* Blinking animation */
-  animation: blink 2s infinite ease-in-out;
-}
+        .whatsapp {
+            background: #25d366;
+        }
 
-/* Slow blinking keyframes */
-@keyframes blink {
-  0%, 100% { opacity: 1; }
-  50%      { opacity: 0.4; }
-}
+        .facebook {
+            background: #1877f2;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2.5em;
+            }
+            
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .share-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
     </style>
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-        import { getFirestore, collection, getDocs, query, where } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-        
-      
-        const app = initializeApp(firebaseConfig);
-        const db = getFirestore(app);
-        
-        // Show loading animation initially
-        document.addEventListener('DOMContentLoaded', () => {
-            const loader = document.getElementById('loader');
-            const loginForm = document.getElementById('loginForm');
-            
-            sessionStorage.setItem('isLogin', 'false');
-            sessionStorage.setItem('userName', 'Guest');
-            sessionStorage.setItem('userRole', '');
-            sessionStorage.setItem('userid', 0);
-            // Hide loader after 1.5 seconds
-            setTimeout(() => {
-                loader.style.opacity = '0';
-                setTimeout(() => {
-                    loader.style.display = 'none';
-                    loginForm.style.display = 'block';
-                }, 300);
-            }, 1500);
-            
-            // Add input event listeners
-            const usernameInput = document.getElementById('loginUsername');
-            const passwordInput = document.getElementById('loginPassword');
-            
-            usernameInput.addEventListener('input', checkInputs);
-            passwordInput.addEventListener('input', checkInputs);
-            
-            function checkInputs() {
-                const usernameGroup = document.getElementById('usernameGroup');
-                const passwordGroup = document.getElementById('passwordGroup');
-                
-                if (usernameInput.value.trim() !== '') {
-                    usernameGroup.classList.add('filled');
-                } else {
-                    usernameGroup.classList.remove('filled');
-                }
-                
-                if (passwordInput.value.trim() !== '') {
-                    passwordGroup.classList.add('filled');
-                } else {
-                    passwordGroup.classList.remove('filled');
-                }
-            }
-        });
-        
-        window.loginUser = async function() {
-            let username = document.getElementById('loginUsername').value.trim();
-            let password = document.getElementById('loginPassword').value.trim();
-            
-            if (!username || !password) {
-                showNotification('Please enter both username and password!', 'error');
-                return;
-            }
-            
-            // Show loading animation
-            const loginBtn = document.getElementById('loginBtn');
-            loginBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Logging in...';
-            loginBtn.disabled = true;
-            
-            try {
-                const usersRef = collection(db, "users");
-                const q = query(usersRef, where("userName", "==", username), where("userPassword", "==", password));
-                const querySnapshot = await getDocs(q);
-                
-                if (!querySnapshot.empty) {
-                    let userDoc = querySnapshot.docs[0];  // Get the first matching document
-                    let userId = userDoc.id;  // Firestore document ID (Primary Key)
-                    let userData = userDoc.data();
-                    let userName = userData.userName;  
-                    let userRole = userData.userRole;
-                    let userID = userData.userid;
-                    
-                    // Store login status and user ID in sessionStorage
-                    sessionStorage.setItem('isLogin', 'true');
-                    sessionStorage.setItem('userName', userName);
-                    sessionStorage.setItem('userRole', userRole);
-		    sessionStorage.setItem('userid', userID);
-
-                    
-                    showNotification('Login successful! Welcome ' + userName, 'success');
-                    
-                    // Redirect after showing notification
-                   setTimeout(() => {
-             window.location.href = `dashboard.html?userId=${userData.userid}&userRole=${userData.userRole}`;
-
-               }, 1500);
-                } else {
-                    showNotification('Invalid username or password!', 'error');
-                    loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
-                    loginBtn.disabled = false;
-                }
-            } catch (error) {
-                console.error("Error during login: ", error);
-                showNotification('An error occurred. Please try again.', 'error');
-                loginBtn.innerHTML = '<i class="fas fa-sign-in-alt"></i> Login';
-                loginBtn.disabled = false;
-            }
-        };
-        
-        window.showNotification = function(message, type) {
-            const notification = document.getElementById('notification');
-            notification.textContent = message;
-            notification.className = `notification ${type}`;
-            notification.style.display = 'block';
-            
-            setTimeout(() => {
-                notification.style.display = 'none';
-            }, 3000);
-        };
-
-
-    </script>
 </head>
-<body oncontextmenu="return false;" onkeydown="if(event.keyCode==123) return false;">
-    <div class="loginContainer" id="loginPage">
-        <div id="loader" class="loader-container">
-            <div class="loader"></div>
-            <p class="loader-text">Loading BTC Kilimanoor...</p>
-        </div>
-        
-        <div id="loginForm" style="display: none;">
-            <div class="brain-icon pulse">
-                <span onclick="window.open('https://www.instagram.com/btcksrtckilimanoor/', '_blank')" style=" cursor: pointer;"><i class="fas fa-bus"></i></span>
-            </div>
-           
-            <h2 onclick="window.open('https://www.facebook.com/photo.php?fbid=882675203893183&id=100064521349277&set=a.488016386692402', '_blank')" style=" cursor: pointer;">BTC Kilimanoor</h2>
-            <p class="subtitle">Budget Tourism Cell of <span onclick="window.open('https://www.facebook.com/KeralaStateRoadTransportCorporation', '_blank')" style=" cursor: pointer;">KSRTC </span>
-	<span onclick="window.open('https://g.co/kgs/NrWA4c9', '_blank')" >Kilimanoor</span></p>
-            
-            <div id="usernameGroup" class="form-group">
-                <label for="loginUsername" id="log" onclick="showMsg(this)">Username</label>
-                <input type="text" id="loginUsername" placeholder="Enter your username">
-                <i class="fas fa-user"></i>
-            </div>
-            
-            <div id="passwordGroup" class="form-group">
-                <label for="loginPassword" id="pas" onclick="showMsg(this)">Password</label>
-                <input type="password" id="loginPassword" placeholder="Enter your password">
-               <i class="fas fa-lock input-icon"></i>
-                <i class="fas fa-eye-slash toggle-password" onclick="togglePassword()"></i>
-            </div>
-            
-            <a href="tel:9633732363" class="forgotten-password">Forgot password?</a>
-            
-            <div class="buttons">
-                <button id="loginBtn" onclick="loginUser()" class="btn btn-primary">
-                    <i class="fas fa-sign-in-alt"></i> Login
-                </button>
-                
-             <div class="divider">or</div>
-                
-                <button onclick="window.location.href = 'addUser.html';" class="btn btn-secondary">
-                    <i class="fas fa-user-plus"></i> Sign Up
-                </button>
-                
-                <button  onclick="window.location.href = 'dashboard.html?userId=0';" class="btn btn-accent">
-                    <i class="fas fa-chevron-right"></i> Continue as Guest
-                </button>
+<body>
+    <section class="hero">
+        <div class="container">
+            <div class="hero-content">
+                <h1>Innovative Software Solutions</h1>
+                <p>Crafting cutting-edge applications that solve real-world problems</p>
+                <a href="#projects" class="cta-button">Explore My Work</a>
             </div>
         </div>
+    </section>
 
-<footer id="foot" onclick="toggleFooter()" style="color: white; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; font-size: 0.65rem; text-align: center; padding: 10px; cursor: pointer;" class="custom-footer">
-  <p>version.2.1.2. build.29.05.2025</p>
-</footer>
+    <section class="projects" id="projects">
+        <div class="container">
+            <h2 class="section-title">Featured Projects</h2>
+            
+            <div class="projects-grid">
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=500&h=300&fit=crop')"></div>
+                    <div class="project-content">
+                        <h3 class="project-title">Online Ticket Reservation System</h3>
+                        <p class="project-description">Complete booking platform with secure online payment integration, real-time availability, and user-friendly interface for seamless ticket reservations.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Payment Gateway</span>
+                            <span class="tech-tag">Real-time</span>
+                            <span class="tech-tag">Responsive</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">Live Demo</a>
+                            <a href="#" class="project-link">Source Code</a>
+                        </div>
+                    </div>
+                </div>
 
-<script>
-  function toggleFooter() {
-    const footer = document.getElementById('foot');
-    if(footer.style.color === 'white') {footer.style.color = 'purple'; footer.style.borderTop = '2px solid purple';}
-    else {footer.style.color = 'white';  footer.style.borderTop = '2px solid white';}
-  }
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1555949963-aa79dcee981c?w=500&h=300&fit=crop')"></div>
+                    <div class="project-content">
+                        <h3 class="project-title">StegoVault - Advanced Steganography</h3>
+                        <p class="project-description">Sophisticated data hiding tool combining steganography with cryptography for ultimate security. Hide sensitive information within images seamlessly.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Cryptography</span>
+                            <span class="tech-tag">Security</span>
+                            <span class="tech-tag">Steganography</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">Try It</a>
+                            <a href="#" class="project-link">Documentation</a>
+                        </div>
+                    </div>
+                </div>
 
-  // Optional: Start with footer hidden, then show it once after 1 second as an example
-  // setTimeout(() => document.getElementById('foot').style.display = 'block', 1000);
-</script>
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=500&h=300&fit=crop')"></div>
+                    <div class="project-content">
+                        <h3 class="project-title">Online C Compiler</h3>
+                        <p class="project-description">Full-featured web-based C compiler with syntax highlighting, error detection, and instant compilation. Perfect for learning and quick testing.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Compiler</span>
+                            <span class="tech-tag">Web-based</span>
+                            <span class="tech-tag">Educational</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">Compile Now</a>
+                            <a href="#" class="project-link">Features</a>
+                        </div>
+                    </div>
+                </div>
 
-    </div>
-    
-    <div id="notification" class="notification"></div>
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1515187029135-18ee286d815b?w=500&h=300&fit=crop')"></div>
+                    <div class="project-content">
+                        <h3 class="project-title">College Event Management System</h3>
+                        <p class="project-description">Complete event management solution with online registration, attendance tracking, and automated notifications for educational institutions.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Event Management</span>
+                            <span class="tech-tag">Registration</span>
+                            <span class="tech-tag">Automation</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">View Demo</a>
+                            <a href="#" class="project-link">Learn More</a>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=500&h=300&fit=crop')"></div>
+                    <div class="project-content">
+                        <h3 class="project-title">Brain Boost - Exam Prep App</h3>
+                        <p class="project-description">Comprehensive mobile application for competitive exam preparation with practice tests, progress tracking, and personalized study plans.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Education</span>
+                            <span class="tech-tag">Mobile App</span>
+                            <span class="tech-tag">Analytics</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">Download</a>
+                            <a href="#" class="project-link">Features</a>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('https://images.unsplash.com/photo-1516259762381-22954d7d3ad2?w=500&h=300&fit=crop')"></div>
+                    <div class="project-content">
+                        <h3 class="project-title">Linus Obfuscator</h3>
+                        <p class="project-description">Advanced code obfuscation tool to protect your source code from reverse engineering while maintaining functionality and performance.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Code Protection</span>
+                            <span class="tech-tag">Obfuscation</span>
+                            <span class="tech-tag">Security</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">Try Tool</a>
+                            <a href="#" class="project-link">Documentation</a>
+                        </div>
+                    </div>
+                </div>
 
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/800px-WhatsApp.svg.png')"></div>
+                    <div class="project-content">
+                        <h3 class="project-title">Sun Chat - Messaging Platform</h3>
+                        <p class="project-description">WhatsApp-like real-time messaging application with end-to-end encryption, group chats, media sharing, and cross-platform support.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Real-time</span>
+                            <span class="tech-tag">Messaging</span>
+                            <span class="tech-tag">Encryption</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">Start Chatting</a>
+                            <a href="#" class="project-link">Privacy Policy</a>
+                        </div>
+                    </div>
+                </div>
 
-    
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('https://i.ytimg.com/vi/2jReF84mysk/hqdefault.jpg')"></div>
+                    <div class="project-content">
+                        <h3 class="project-title">Talking Scientific Calculator</h3>
+                        <p class="project-description">Voice-enabled scientific calculator with unit conversions, real-time currency exchange rates, and accessibility features for visually impaired users.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Voice Recognition</span>
+                            <span class="tech-tag">Scientific</span>
+                            <span class="tech-tag">Accessibility</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">Calculate</a>
+                            <a href="#" class="project-link">Voice Guide</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="project-card">
+                    <div class="project-image" style="background-image: url('https://assets.aboutamazon.com/dims4/default/5c6574a/2147483647/strip/true/crop/4592x2583+0+0/resize/1320x743!/quality/90/?url=https%3A%2F%2Famazon-blogs-brightspot.s3.amazonaws.com%2Fa3%2F3c%2F0be31efe488485c4d2f152cdcea9%2Fcrawfod-market-mh.jpg')"></div>
+                    <div class="project-content">
+                        <h3 class="project-title">Commercial Software Solutions</h3>
+                        <p class="project-description">Comprehensive business management software suite for retail, hospitality, and service industries with inventory, billing, and analytics modules.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">Business</span>
+                            <span class="tech-tag">ERP</span>
+                            <span class="tech-tag">Analytics</span>
+                        </div>
+                        <div class="project-links">
+                            <a href="#" class="project-link">Request Demo</a>
+                            <a href="#" class="project-link">Pricing</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="social-share">
+        <div class="container">
+            <h2>Share My Portfolio</h2>
+            <p>Found something interesting? Share it with your network!</p>
+            <div class="share-buttons">
+                <a href="" onclick="alert('Want to do Project. WhatsApp. 9446266822');" class="share-btn whatsapp">
+                    📱 Share on WhatsApp
+                </a>
+                <a href="https://www.facebook.com/sharer/sharer.php?u=" class="share-btn facebook" target="_blank">
+                    📘 Share on Facebook
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 sunilskutan.
+        </div>
+    </footer>
+
     <script>
-        // Add enter key functionality for form submission
-        document.getElementById('loginPassword').addEventListener('keyup', function(event) {
-            if (event.key === 'Enter') {
-                loginUser();
-            }
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
         });
-        
-        // Password visibility toggle
-        document.addEventListener('DOMContentLoaded', function() {
-            const passwordField = document.getElementById('loginPassword');
-            const passwordGroup = document.getElementById('passwordGroup');
-            
-            // Create eye icon for password visibility
-            const eyeIcon = document.createElement('i');
-            eyeIcon.className = 'fas fa-eye-slash';
-            eyeIcon.style.position = 'absolute';
-           // eyeIcon.style.right = '15px';
-  eyeIcon.style.left = '15px';
-            eyeIcon.style.top = '42px';
-            eyeIcon.style.cursor = 'pointer';
-            eyeIcon.style.color = '#aaa';
-            
-            // Add click event to toggle password visibility
-            eyeIcon.addEventListener('click', function() {
-                if (passwordField.type === 'password') {
-                    passwordField.type = 'text';
-                    eyeIcon.className = 'fas fa-eye';
-                } else {
-                    passwordField.type = 'password';
-                    eyeIcon.className = 'fas fa-eye-slash';
+
+        // Add animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
                 }
             });
-            
-            passwordGroup.appendChild(eyeIcon);
+        }, observerOptions);
+
+        // Observe all project cards
+        document.querySelectorAll('.project-card').forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)'; 
+            card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(card);
         });
 
-function showMsg(id) {
-    // Create the message element
-    const messageDiv = document.createElement('div');
-    
-    // Set message content and position based on id
-    let baseStyles = `
-        position: fixed;
-        top: 20px;
-        color: white;
-        padding: 12px 20px;
-        border-radius: 8px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        font-size: 14px;
-        font-weight: 500;
-        z-index: 1000;
-        opacity: 0;
-        transition: all 0.3s cubic-bezier(0.68, -0.55, 0.265, 1.55);
-        pointer-events: none;
-        border-left: 4px solid rgba(255, 255, 255, 0.3);
-    `;
-    
-    if (id.id === 'log') {
-        messageDiv.textContent = 'രജിസ്ട്രേഷന്‍ സമയത്ത് നല്‍കിയ പേര്';
-        messageDiv.style.cssText = baseStyles + `
-            left: 20px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            transform: translateX(-100px);
-        `;
-    } else {
-        messageDiv.textContent = 'രജിസ്ട്രേഷന്‍ സമയത്ത് നല്‍കിയ പാസ്സ്‌വേര്‍ഡ്‌';
-        messageDiv.style.cssText = baseStyles + `
-            right: 20px;
-            background: linear-gradient(135deg, #003300 0%, #00ff00 100%);
-            transform: translateX(100px);
-        `;
-    }
-    
-    // Add to document
-    document.body.appendChild(messageDiv);
-    
-    // Animate in
-    setTimeout(() => {
-        messageDiv.style.opacity = '1';
-        messageDiv.style.transform = 'translateX(0)';
-    }, 10);
-    
-    // Remove after 2 seconds
-    setTimeout(() => {
-        messageDiv.style.opacity = '0';
-        // Animate out in opposite direction based on position
-        if (id.id === 'log') {
-            messageDiv.style.transform = 'translateX(-100px)';
-        } else {
-            messageDiv.style.transform = 'translateX(100px)';
-        }
-        
-        // Remove from DOM after animation
-        setTimeout(() => {
-            if (messageDiv.parentNode) {
-                document.body.removeChild(messageDiv);
-            }
-        }, 300);
-    }, 2000);
-}
+        // Update share URLs with current page URL
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentURL = encodeURIComponent(window.location.href);
+            const title = encodeURIComponent(document.title);
+            
+           // const whatsappBtn = document.querySelector('.whatsapp');
+            const facebookBtn = document.querySelector('.facebook');
+            
+          //  whatsappBtn.href = `https://web.whatsapp.com/sunilskutan`;
+            facebookBtn.href = `https://www.facebook.com/sunilskutan`;
+        });
+
+whatsappBtn.onclick = function(event) {
+    event.preventDefault(); // Prevent the default link action
+    alert("This feature is not available right now.");
+};
     </script>
-
-
-
 </body>
 </html>
