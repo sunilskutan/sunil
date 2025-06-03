@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
     <title>My Portfolio - Innovative Software Solutions</title>
     
     <!-- Open Graph Meta Tags for Social Media -->
@@ -79,7 +81,7 @@
         }
 
         .hero p {
-            font-size: 1.3em;
+            font-size: 1.0em;
             margin-bottom: 30px;
             opacity: 0.9;
             animation: fadeInUp 1s ease-out 0.3s both;
@@ -93,7 +95,7 @@
             text-decoration: none;
             border-radius: 50px;
             font-weight: 600;
-            font-size: 1.1em;
+            font-size: 0.8em;
             transition: all 0.3s ease;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             animation: fadeInUp 1s ease-out 0.6s both;
@@ -365,7 +367,7 @@
             <div class="hero-content">
                 <h1>Innovative Software Solutions</h1>
                 <p>Crafting cutting-edge applications that solve real-world problems</p>
-                <a href="#projects" class="cta-button">Explore My Work</a>
+                <a href="#projects" onclick="showInfoMessage()" class="cta-button">Academic Projects</a>
             </div>
         </div>
     </section>
@@ -534,7 +536,7 @@
     <section class="social-share">
         <div class="container">
             <h2>Share My Portfolio</h2>
-            <p>Found something interesting? Share it with your network!</p>
+            <p>Found something interesting? Share it with me @ <i class="fab fa-whatsapp"></i> 9446266822!</p>
             <div class="share-buttons">
                 <a href="" onclick="shareOnWhatsApp();" class="share-btn whatsapp">
     📱 Share on WhatsApp
@@ -600,7 +602,7 @@
 
 function shareOnWhatsApp() {
     const url = encodeURIComponent(window.location.href);
-    const text = encodeURIComponent("Check out this amazing portfolio of innovative software solutions from sunilskutan@9446266822! ");
+    const text = encodeURIComponent("Check out this amazing portfolio of innovative software solutions from sunilskutan! ");
     
     // Detect if it's mobile device
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
@@ -619,6 +621,45 @@ function shareOnFacebook() {
     
     // Facebook sharing works the same on mobile and desktop
     window.open(`https://www.facebook.com/sunilskutan`, '_blank', 'width=600,height=400');
+}
+
+
+function showInfoMessage() {
+  // Create container
+  const box = document.createElement('div');
+  box.textContent = '📘 Documentation and 🎥 Online Coaching will be Provided';
+  
+  // Style it beautifully
+  Object.assign(box.style, {
+    position: 'fixed',
+    top: '20px',
+    left: '50%',
+    transform: 'translateX(-50%)',
+    background: 'linear-gradient(to right, #00c6ff, #0072ff)',
+    color: 'white',
+    padding: '15px 30px',
+    fontSize: '18px',
+    fontFamily: 'Arial, sans-serif',
+    borderRadius: '12px',
+    boxShadow: '0 4px 12px rgba(0, 0, 0, 0.3)',
+    zIndex: 9999,
+    animation: 'fadeInOut 5s ease-in-out forwards'
+  });
+
+  // Add to body
+  document.body.appendChild(box);
+
+  // Add animation with keyframes
+  const style = document.createElement('style');
+  style.textContent = `
+    @keyframes fadeInOut {
+      0% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+      10% { opacity: 1; transform: translateX(-50%) translateY(0); }
+      90% { opacity: 1; }
+      100% { opacity: 0; transform: translateX(-50%) translateY(-20px); }
+    }
+  `;
+  document.head.appendChild(style);
 }
 
     </script>
