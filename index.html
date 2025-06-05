@@ -585,7 +585,7 @@
                             <span class="tech-tag">Analytics</span>
                         </div>
                         <div class="project-links">
-                            <a href="#" class="project-link">Request Demo</a>
+                            <a href="#" class="project-link" onclick="automate()">Let's Automate!</a>
                             <a href="#" class="project-link">Pricing</a>
                         </div>
                     </div>
@@ -709,7 +709,7 @@ function shareOnFacebook() {
 function showInfoMessage() {
   // Create container
   const box = document.createElement('div');
-  box.textContent = '📘 Documentation and 🎥 Online Coaching will be Provided';
+  box.innerHTML = '📘 Documentation and 🎥 Online Coaching will be Provided for <br>MCA / MSc / BTec / BCA / BSc Projects';
   
   // Style it beautifully
   Object.assign(box.style, {
@@ -742,6 +742,59 @@ function showInfoMessage() {
     }
   `;
   document.head.appendChild(style);
+}
+
+function automate() {
+  // Create overlay
+  const overlay = document.createElement("div");
+  overlay.id = "automationOverlay";
+  overlay.style.position = "fixed";
+  overlay.style.top = "0";
+  overlay.style.left = "0";
+  overlay.style.width = "100vw";
+  overlay.style.height = "100vh";
+  overlay.style.backgroundColor = "rgba(0, 0, 0, 0.9)";
+  overlay.style.display = "flex";
+  overlay.style.flexDirection = "column";
+  overlay.style.justifyContent = "center";
+  overlay.style.alignItems = "center";
+  overlay.style.zIndex = "9999";
+
+  // Create GIF image
+  const gif = document.createElement("img");
+  gif.src = "https://i.makeagif.com/media/11-27-2015/EIfoo-.gif";
+  gif.style.maxWidth = "90%";
+  gif.style.maxHeight = "80%";
+  gif.style.border = "5px solid gold";
+  gif.style.borderRadius = "12px";
+  gif.alt = "Automation GIF";
+
+  // Create Close button
+  const closeBtn = document.createElement("span");
+  closeBtn.innerHTML = "&times;";
+  closeBtn.style.position = "absolute";
+  closeBtn.style.top = "20px";
+  closeBtn.style.right = "30px";
+  closeBtn.style.fontSize = "40px";
+  closeBtn.style.color = "white";
+  closeBtn.style.cursor = "pointer";
+  closeBtn.onclick = () => document.body.removeChild(overlay);
+
+  // Create marquee
+  const marquee = document.createElement("marquee");
+  marquee.textContent = "Your business can be computerized at affordable deals.";
+  marquee.style.color = "gold";
+  marquee.style.fontSize = "24px";
+  marquee.style.marginTop = "20px";
+  marquee.style.background = "#222";
+  marquee.style.padding = "10px";
+  marquee.style.borderRadius = "8px";
+
+  // Append elements
+  overlay.appendChild(closeBtn);
+  overlay.appendChild(gif);
+  overlay.appendChild(marquee);
+  document.body.appendChild(overlay);
 }
 
     </script>
