@@ -276,6 +276,44 @@
             opacity: 1;
         }
 
+        .social-share {
+            background: #f8f9fa;
+            padding: 40px 0;
+            text-align: center;
+        }
+
+        .share-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .share-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 24px;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            color: white;
+        }
+
+        .whatsapp {
+            background: #25d366;
+        }
+
+        .facebook {
+            background: #1877f2;
+        }
+
+        .share-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
         .footer {
             background: darkgreen;
             color: white;
@@ -545,18 +583,19 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    </section>
 
-    <section class="social-share">
-        <div class="container">
-            <p>Found something interesting? Share it with me @ <i class="fab fa-whatsapp"></i> 9446266822!</p>
-            <div >
+<div class="project-card">
+                    <div ></div>
+                    <div class="project-content">
+                        <h3 class="project-title">Social Media Share</h3>
+                        <p class="project-description">Get in touch.</p>
+                        <div class="project-tech">
+                            <span class="tech-tag">
+
 
 
 <button class="share-btn" onclick="launch(this)">
-  <span class="btn-text">📱 WhatsApp</span>
+  <span class="btn-text">📱 Share on WhatsApp</span>
   <style>
     .share-btn {
       position: relative;
@@ -685,14 +724,29 @@ function launch(button) {
 }
 </script>
 </button>
+</span>
+                            
+
+                        </div>
+                        <div class="project-links">
+                            <a href="https://www.facebook.com/profile.php?id=61573019728440" class="project-link">Facebook</a>
+                        </div>
+                    </div>
+                </div>
 
 
-                <a href="" onclick="shareOnFacebook();" class="share-btn facebook">
-    📘 Share on Facebook
-</a>
             </div>
         </div>
     </section>
+
+    
+
+         
+
+
+
+
+
 
     <footer class="footer">
         <div class="container">
@@ -881,6 +935,10 @@ function automate() {
   overlay.appendChild(marquee);
   document.body.appendChild(overlay);
 }
+
+
+
+
  
     </script>
 </body>
