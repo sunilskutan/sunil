@@ -315,10 +315,10 @@
         }
 
         .footer {
-            background: #2c3e50;
+            background: darkgreen;
             color: white;
             text-align: center;
-            padding: 40px 0;
+            padding: 20px 0;
         }
 
         @keyframes fadeInUp {
@@ -386,20 +386,11 @@
         color: #8B5CF6;
         animation: float 3s ease-in-out infinite;
     }
-}
 
-/* Floating animation for decorative elements */
-@keyframes float {
-    0%, 100% { transform: translateX(-50%) translateY(0px); }
-    50% { transform: translateX(-50%) translateY(-10px); }
-}
-       
-    /*        
-            .share-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-*/
+
+
+
+
     </style>
 </head>
 <body>
@@ -596,12 +587,140 @@
 
     <section class="social-share">
         <div class="container">
-            <h2>Share My Portfolio</h2>
             <p>Found something interesting? Share it with me @ <i class="fab fa-whatsapp"></i> 9446266822!</p>
             <div class="share-buttons">
-                <a href="" onclick="shareOnWhatsApp();" class="share-btn whatsapp">
-    📱 Share on WhatsApp
-</a>
+
+
+<button class="share-btn" onclick="launch(this)">
+  <span class="btn-text">📱 Share on WhatsApp</span>
+  <style>
+    .share-btn {
+      position: relative;
+      width: 200px;
+      height: 60px;
+      background: #0060B7; /* blue background from image */
+      border: none;
+      border-radius: 5px;
+      overflow: hidden;
+      cursor: pointer;
+      font-family: sans-serif;
+    }
+
+    .btn-text {
+      color: white;
+      font-weight: bold;
+      text-align: center;
+      line-height: 60px;
+      display: block;
+      width: 100%;
+    }
+
+    .missile-img {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      height: 40px;
+      left: -60px;
+      transition: left 1s ease-in-out;
+      z-index: 10;
+      animation: missileFloat 0.6s ease-in-out infinite alternate;
+    }
+
+    @keyframes missileFloat {
+      0% {
+        transform: translateY(-50%) translateY(-4px);
+      }
+      100% {
+        transform: translateY(-50%) translateY(4px);
+      }
+    }
+
+    .particle {
+      position: absolute;
+      width: 3px;
+      height: 3px;
+      background: white;
+      border-radius: 50%;
+      top: 50%;
+      animation: flyLeft 1s linear infinite;
+      z-index: 1;
+    }
+
+    @keyframes flyLeft {
+      0% {
+        right: 0;
+        opacity: 1;
+      }
+      100% {
+        right: 100%;
+        opacity: 0;
+      }
+    }
+
+    .try-text {
+      color: white;
+      font-weight: bold;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      z-index: 5;
+    }
+  </style>
+<script>
+function launch(button) {
+  if (button.classList.contains('launched')) return;
+  button.classList.add('launched');
+
+  const text = button.querySelector('.btn-text');
+  text.style.display = 'none';
+
+  const missile = document.createElement('img');
+  missile.src = 'missile.jpg'; // Replace with actual path to your image
+  missile.className = 'missile-img';
+  button.appendChild(missile);
+
+  // Animate missile: from left to center
+  setTimeout(() => {
+    missile.style.left = '80px';
+  }, 50);
+
+  // After 1s pause at center, move right
+  setTimeout(() => {
+    missile.style.left = '220px'; // out of button
+  }, 2000);
+
+  // Particles moving leftward
+  for (let i = 0; i < 30; i++) {
+    const particle = document.createElement('div');
+    particle.className = 'particle';
+    particle.style.top = `${40 + Math.random() * 20}%`;
+    particle.style.animationDelay = `${Math.random()}s`;
+    button.appendChild(particle);
+  }
+
+  // Clean up and show message
+  setTimeout(() => {
+  missile.remove();
+  button.querySelectorAll('.particle').forEach(p => p.remove());
+
+  const tryText = document.createElement('span');
+  tryText.className = 'try-text';
+
+  tryText.innerHTML = `
+    <a href="https://wa.me/919446266822?text=Hello%20Get%20me%20details%20of%20your%20services" 
+       target="_blank" 
+       style="color: white; text-decoration: none;">
+      <i class="fab fa-whatsapp"></i> 9446266822
+    </a>
+  `;
+
+  button.appendChild(tryText);
+}, 4000);
+
+}
+</script>
+</button>
                 <a href="" onclick="shareOnFacebook();" class="share-btn facebook">
     📘 Share on Facebook
 </a>
@@ -796,7 +915,6 @@ function automate() {
   overlay.appendChild(marquee);
   document.body.appendChild(overlay);
 }
-
     </script>
 </body>
 </html>
